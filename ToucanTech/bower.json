@@ -1,0 +1,25 @@
+{
+  "name": "ToucanTech",
+  "homepage": "https://github.com/Lambrusc0/ToucanTech",
+  "authors": [
+    "Gabor Juhasz <gabor.juhasz.uk@gmail.com>"
+  ],
+  "description": "interview test",
+  "main": "index.php",
+  "keywords": [
+    "test"
+  ],
+  "license": "Gabor",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "angular": "^1.6.5",
+    "backbone": "^1.3.3"
+  }
+}
