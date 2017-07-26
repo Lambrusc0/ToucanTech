@@ -1,81 +1,73 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        <script src="js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="js/script.js"></script>
-        <title>Assignment 2</title>
-        <script>
-          $( function() {
-            $( "#tabs" ).tabs();
-          } );
-        </script>
-    </head>
-    <body>
+
         <div id="content-wrap">
         
             <div id="content">
             
-                <div id="tabs">
-                  <ul>
-                    <li><a id="form" href="#tabs-1">NEW CONTACT</a></li>
-                    <li><a id="data" href="#tabs-2">CONTACT LIST</a></li>
-                  </ul>
                 
                     <div id="tab-wrap">
                     
-                      <div id="tabs-1">
-                          <h2>Use this form to add new contact</h2>
-                          <span id="error"></span>
-                        <form id="submit-form" methid="POST">
+                      <div id="tab-1">
+                          <h2>Use this form to add new student to the list</h2>
                           
-                            City:<br>
-                            <select name="city" id="city">
-                                <option>London</option>
-                                <option>Oxford</option>
-                                <option>Cambridge</option>
-                                <option>Edinburg</option>
-                            </select><br>
-                            Department:<br>
-                            <select name="department" id="department">
-                                <option>Office</option>
-                                <option>Digital</option>
-                                <option>Rental</option>
-                            </select><br>
-                            Title:<br>
-                            <input type="text" name="title" id="title"><br>
-                            Position:<br>
-                            <input type="text" name="position" id="position"><br>
-                            <input type="button" value="Add data" id="add-new-data">
+                          <span id="error"></span>
+                          
+                        <form id="submit-form" action="<?php echo URL ?>home/newStudent" method="POST">
+                          
+                            <div class="input-wrap">
+                                Name<br>
+                                <input type="text" name="student-name" id="student-name"><br>
+                            </div>
+                            
+                            <div class="input-wrap">
+                                Email:<br>
+                                <input type="text" name="student-email" id="student-name"><br>
+                            </div>
+                            School:
+                            <div class="input-wrap left-align wrap">
+                                
+                                <div class="input-flex">
+                                    <input type="checkbox" id="canterbury" name="school[]" value="canterbury">
+                                    <label for="canterbury">Canterbury Christ Church University</label>
+                                </div>
+                                <div class="input-flex">
+                                    <input type="checkbox" id="huddersfield" name="school[]" value="huddersfield">
+                                    <label for="huddersfield">University of Huddersfield</label>
+                                </div>
+                                <div class="input-flex">
+                                    <input type="checkbox" id="staffordshire" name="school[]" value="staffordshire">
+                                    <label for="staffordshire">Staffordshire University</label>
+                                </div>
+                                <div class="input-flex">
+                                    <input type="checkbox" id="SAE" name="school[]" value="SAE">
+                                    <label for="SAE">SAE Institute</label>
+                                </div>
+                            </div>
+                            
+                            <input type="submit" name="submit" value="Add New Student" id="add-new-student">
                             
                           
                         </form>
                       </div>
-                      <div id="tabs-2">
-                        <h2>Here you can find all the inserted contacts</h2>
-                          
-                          <table id="contact-table">
-                          
-                            <tr>
-                                <th>City</th>
-                                <th>Department</th>
-                                <th>Title</th>
-                                <th>Position</th>
-                            </tr>
-                          
-                          </table>
-                          
-                      </div>
+                        
+                        <div id="tab-2">
+                        
+                            <h3>Student list</h3>
+                            <table>
+                            
+                                <tr>
+                                    <th>Student name</th>
+                                    <th>Student email</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            
+                            </table>
+                            
+                        </div>
+                      
                         
                     </div>
                 </div>
             
             </div>
         
-        </div>
-    </body>
-</html>

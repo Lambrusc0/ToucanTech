@@ -1,3 +1,50 @@
+@import 'variable';
+@import 'navbar';
+
+
+
 body{
-    color:red;
+    font-family: $font-style;
+}
+
+html{
+    width:100%;
+}
+
+input[type=submit], input[type=text], {
+    @include box-padding(10px);
+    @include input-style;
+    width:60%;
+    margin:1% 0%;
+    font-size: $font-size+0.2;
+}
+
+.input-wrap{
+    @include box-padding(10px);
+}
+
+#tab-wrap{
+    @include flexbox;
+    #tab-1{
+        @include half-screen;
+        text-align: center;
+        .left-align{
+            text-align: left;
+        }
+        .wrap{
+            @include flexbox;
+            flex-wrap: wrap;
+            .input-flex{
+                width:50%;
+            }
+        }
+    }
+    #tab-2{
+        @include half-screen;
+        text-align: center;
+        table{
+            margin: $box-center;
+            @include full-width;
+        }
+    }
 }

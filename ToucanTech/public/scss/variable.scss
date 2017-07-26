@@ -1,0 +1,30 @@
+$font-style: 'Montserrat', sans-serif;
+$box-center: 0px auto;
+$font-size: 1em;
+$black: #000;
+$blue: blue;
+
+@mixin box-padding($padding){
+    padding:$padding
+}
+
+@mixin flexbox{
+    display: -webkit-flex;
+    display: flex;
+}
+
+@mixin half-screen{
+    width:48%;
+    margin:1%;
+}
+
+@mixin input-style{
+    box-sizing:border-box;
+    -webkit-appearance: none;
+    outline:none;
+}
+
+@mixin full-width{
+    width:90%;
+    margin: $box-center;
+}
