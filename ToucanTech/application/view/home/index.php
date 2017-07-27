@@ -1,4 +1,7 @@
 
+
+
+
         <div id="content-wrap">
         
             <div id="content">
@@ -7,6 +10,7 @@
                     <div id="tab-wrap">
                     
                       <div id="tab-1">
+                          
                           <h2>Use this form to add new student to the list</h2>
                           
                           <span id="error"></span>
@@ -23,10 +27,10 @@
                                 <input type="text" name="student-email" id="student-name"><br>
                             </div>
                             School:
-                            <div class="input-wrap left-align wrap">
+                            <div class="input-wrap left-align wrap" id="checkboxes">
                                 
                                 <div class="input-flex">
-                                    <input type="checkbox" id="canterbury" name="school[]" value="canterbury">
+                                    <input type="checkbox" id="canterbury" name="school[]" value="canterbury" checked>
                                     <label for="canterbury">Canterbury Christ Church University</label>
                                 </div>
                                 <div class="input-flex">
@@ -52,17 +56,19 @@
                         <div id="tab-2">
                         
                             <h3>Student list</h3>
-                            <table>
-                            
-                                <tr>
-                                    <th>Student name</th>
-                                    <th>Student email</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
-                                </tr>
-                            
-                            </table>
-                            
+                            <input type="text" name="search" id="search" placeholder="Search by student name...">
+                            <div id="table-wrap">
+                                <table id="student-list">
+
+                                    <tr>
+                                        <th>Student name</th>
+                                        <th>Student email</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+
+                                </table>
+                            </div>
                         </div>
                       
                         

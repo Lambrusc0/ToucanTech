@@ -32,6 +32,7 @@ class HomeController extends BaseController
         require APP . 'view/_templates/header.php';
         require APP . 'view/home/index.php';
         require APP . 'view/_templates/footer.php';
+        
     }
     
     // redirect new page
@@ -52,18 +53,18 @@ class HomeController extends BaseController
         $lastId = $this->model->newStudentModel($name, $email);
         
         $checkBox = $_POST['school'];
-
+        //var_dump($checkBox);
+        
         // inserting multiple checkboxes to database
         if(isset($_POST['school'])){
-            
             
             
             for ($i=0; $i<sizeof($checkBox); $i++)
                 {
                     $this->model->newSchoolModel($checkBox[$i], $lastId);
-                    echo $checkBox;
                 }
-            echo "Complete";
+            
+            $this->redirect('home');
 
         }
         
@@ -75,36 +76,141 @@ class HomeController extends BaseController
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public function loadStudents(){
         
-        $contacts = $this->model->loadContactsModel();
+        $students = $this->model->loadStudentsModel();
         //var_dump($contacts);
         //echo json_encode($contacts);
         
-        foreach((array)$contacts as $category){
-                                        
-            $city = $category['city'];
-            $department = $category['department'];
-            $title = $category['department'];
-            $position = $category['position'];
-            $id = $category['id'];
+        foreach((array)$students as $student){
+                          
+            $id = $student['student_id'];
+            $name = $student['student_name'];
+            $email = $student['student_email'];
+            $regDate = $student['reg_date'];
             
-            echo "<tr id='".$id."'><td>".$city."</td><td>".$department."</td><td>".$title."</td><td>".$position."</td</tr>";
+            echo "<tr id='".$id."'><td>".$name."</td><td>".$email."</td><td>
+            <form action='".URL."home/editStudent' method='POST'>
+            <input type='hidden' name='user-id' value='".$id."'>
+            <input type='hidden' name='page' id='page' value=''>
+            <button type='submit' class='edit' id='edit-student' name='edit-student'><img class='img' src='".URL."images/pencil5-512.png'></button>
+            </form>
+            </td>
+            <td>
+            <form action='".URL."home/deleteStudent' method='POST'>
+            <input type='hidden' name='user-id' value='".$id."'>
+            <button type='submit' class='delete' id='delete-student' name='delete-user'><img class='img' src='".URL."images/f-cross_256-128.png'></button>
+            </form>
+            </td></tr>";
             
         }
            
+    }
+    
+    
+    public function deleteStudent(){
+        
+        $id = $_POST['user-id'];
+        //echo $id;
+        $delete = $this->model->deleteStudentModel($id);
+        
+        if($delete == true){
+            
+            $this->redirect('home');
+            
+        }else{
+            echo $delete;
+        }
+        
+    }
+    
+    public function editStudent(){
+        
+        $pageTitle = 'Edit Student'; 
+        
+        $id = $_POST['user-id'];
+        
+        $details = $this->model->editStudentModel($id);
+        
+        foreach($details as $detail){
+            
+            $studentName = $detail['student_name'];
+            $studentEmail = $detail['student_email'];
+            
+        }
+        
+        $schools = $this->model->getSchoolsModel($id);
+        //var_dump($schools);
+        foreach($schools as $school){
+            
+            $studentSchool = $school['school_name'];
+            
+            if($studentSchool == 'canterbury'){
+                $canterbury = "<script type='text/javascript'>document.getElementById('edit-canterbury').checked = true;</script>";
+            }else if($studentSchool == 'huddersfield'){
+                $huddersfield = "<script type='text/javascript'>document.getElementById('edit-huddersfield').checked = true;</script>";
+            }else if($studentSchool == 'staffordshire'){
+                $staffordshire = "<script type='text/javascript'>document.getElementById('edit-staffordshire').checked = true;</script>";
+            }else if($studentSchool == 'SAE'){
+                $SAE = "<script type='text/javascript'>document.getElementById('edit-SAE').checked = true;</script>";
+            }
+            
+        }
+        
+        
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/home/index.php';
+        require APP . 'view/_templates/footer.php';
+        
+        
+        echo "<script type='text/javascript'>";
+        echo "document.getElementById('edit-model').style.display = 'block';";
+        echo "</script>";
+    }
+    
+    
+    public function updateStudent(){
+        
+        $name = $this->filterUserInput($_POST['student-name']);
+        $email = $this->filterUserInput($_POST['student-email']);
+        $id = $_POST['student-id'];
+        $checkBox = $_POST['edit-school'];
+        $lastId = $id;
+        var_dump($checkBox);
+        
+        
+        $this->model->updateStudentModel($name, $email, $id);
+        
+        $this->model->deletSchoolModel($id);
+        
+        // inserting multiple checkboxes to database
+        if(isset($_POST['edit-school'])){
+            
+            
+            for ($i=0; $i<sizeof($checkBox); $i++)
+                {
+                    $error = $this->model->newSchoolModel($checkBox[$i], $lastId);
+                var_dump ($error);
+                }
+            
+
+        }
+        
+        $this->redirect('home');
+        
+        
+    }
+    
+    
+    public function ajaxSearchStudent(){
+        
+        $search = $this->filterUserInput($_POST['searchData']);
+        
+        //return var_dump($search);
+        $data = $this->model->ajaxSearchStudentModel($search);
+        //var_dump($data);
+        echo json_encode($data);
+        
     }
     
     

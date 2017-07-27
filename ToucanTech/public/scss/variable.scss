@@ -3,6 +3,8 @@ $box-center: 0px auto;
 $font-size: 1em;
 $black: #000;
 $blue: blue;
+$white:#fff;
+$green: #196F3D;
 
 @mixin box-padding($padding){
     padding:$padding

@@ -1,0 +1,21 @@
+#member{
+    @include full-width;
+    text-align: center;
+    select{
+        @include box-padding(10px);
+        outline: none;
+        font-size: $font-size+0.3;
+    }
+    table{
+        @include full-width;
+        @include box-padding(20px);
+        .img{
+            height:15px;
+            width:15px;
+        }
+        .edit, .delete{
+            background: white;
+            border:none;
+        }
+    }
+}

@@ -8,15 +8,21 @@
                     
                       
                       <div id="member">
-                        <h2>Here you can find all the students</h2>
-                          
-                          <table id="member-contact-table">
+                        <h2>Search students by school</h2>
+                          <select id="search-school">
+                              <option value="">Select from the list</option>
+                              <option value="canterbury">Canterbury Christ Church University</option>
+                              <option value="huddersfield">University of Huddersfield</option>
+                              <option value="staffordshire">Staffordshire University</option>
+                              <option value="SAE">SAE Institute</option>
+                          </select>
+                          <table id="option-student-list">
                           
                             <tr>
-                                <th>City</th>
-                                <th>Department</th>
-                                <th>Title</th>
-                                <th>Position</th>
+                                <th>Student name</th>
+                                <th>Student email</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                           
                           </table>

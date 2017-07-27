@@ -1,17 +1,29 @@
 @import 'variable';
 @import 'navbar';
+@import 'model';
+@import 'search';
 
 
 
 body{
+    position: relative;
     font-family: $font-style;
+    width:100%;
+    height:100%;
+    margin: 0px;
 }
 
 html{
     width:100%;
+    height:100%;
+    margin: 0px;
 }
 
-input[type=submit], input[type=text], {
+#content-wrap{
+    margin-top:40px;
+}
+
+input[type=submit], input[type=text]{
     @include box-padding(10px);
     @include input-style;
     width:60%;
@@ -42,9 +54,34 @@ input[type=submit], input[type=text], {
     #tab-2{
         @include half-screen;
         text-align: center;
+        position: relative;
+        #table-wrap{
+            position: absolute;
+            height:100%;
+            overflow-y: scroll;
+            width:100%;
+        }
         table{
             margin: $box-center;
             @include full-width;
         }
+        .img{
+            height:15px;
+            width:15px;
+        }
+        .edit, .delete{
+            background: white;
+            border:none;
+        }
     }
+}
+
+footer{
+    position: absolute;
+    bottom: 0px;
+    left:0px;
+    width:100%;
+    text-align: center;
+    background-color: $green;
+    padding: 15px 0px;
 }

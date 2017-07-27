@@ -1,72 +1,139 @@
 $( document ).ready(function(){
-    $('#form').addClass('active');
     
-    $('#form').click(function(){
-        $('#data').removeClass('active');
-        $('#form').addClass('active');
-    })
-
-    $('#data').click(function(){
-        $('#form').removeClass('active');
-        $('#data').addClass('active');
-    })
     
 ///////////////////////////////////////////////////////////
 // AJAX TO LOAD CONTACTS
 ///////////////////////////////////////////////////////////
+// Load students for home page
 $.ajax({
         
-        url     :   url+"home/loadContacts",
+        url     :   url+"home/loadStudents",
         success :   function(data){
             
            //var contact = $.parseJSON(data);
             //var firstItem = data[Object.keys(data)[0]]
             
             //alert(data);
-            $('#contact-table').append(data);
+            $('#student-list').append(data);
+        }
+        
+    })
+
+    
+// Load students for member page
+$.ajax({
+        
+        url     :   url+"member/loadStudents",
+        success :   function(data){
+            
+            $('#option-student-list').append(data);
         }
         
     })
     
     
+$("#search-school").change(function() {
     
-///////////////////////////////////////////////////////////
-// AJAX ADD NEW CONTACT
-///////////////////////////////////////////////////////////
-$('#submit-form').on('click', '#add-new-data', function(){
-        var city = $('#city').val();
-        var department = $('#department').val();
-        var title = $('#title').val();
-        var position = $('#position').val();
+    $("#option-student-list").find("tr:gt(0)").remove();
+    var school = $(this).val();
     
-        console.log('City = '+city+ ', Department = '+department+ ', title = '+title+', Position = '+position);
+    var students = [];
+    
+    $.ajax({
         
-        var dataString = 'city='+city+'&department='+department+'&title='+title+'&position='+position;
-        console.log(dataString);
-    
-    if(title==""||position==""){
-        $('#error').html('Please fill up all the fields');
-    } else {
-        $.ajax({
+        url     : url + "member/ajaxSearchStudent/",
+        type    : "POST",
+        data    :{searchData:school},
+        success : function(data){
             
-            url     :   url+"home/newContact",
-            data    :   dataString,
-            type    :   "POST",
-            success :   function(data){
-                
-                $('#title').val('');
-                $('#position').val('');
-                alert(data);
-                var tr = "<tr><td>"+city+"</td><td>"+department+"</td><td>"+title+"</td><td>"+position+"</td></tr>"
-                $('#contact-table').append(tr);
-                
-            }
             
-        })
-    }
+            data = JSON.parse(data);
+            console.log(data);
+            
+            // loop through the data came from the database
+            for (var i2 =0 ; i2< data.length;i2++){
+                       
+                id = data[i2].student_id;
+                name = data[i2].student_name;
+                email = data[i2].student_email;
+                console.log(id);
+                
+                $('#option-student-list tr:last').after("<tr id="+id+"><td>"+name+"</td><td>"+email+"</td><td><form action='"+url+"member/editStudent' method='POST'><input type='hidden' name='user-id' value='"+id+"'><button type='submit' class='edit' id='edit-student' name='edit-student'><img class='img' src='"+url+"images/pencil5-512.png'></button></form></td><td><form action='"+url+"member/deleteStudent' method='POST'><input type='hidden' name='user-id' value='"+id+"'><button type='submit' class='delete' id='delete-student' name='delete-user'><img class='img' src='"+url+"images/f-cross_256-128.png'></button></form></td></tr>");
+                
+                
+            };
+            
+        }
+        
+    })
     
 })
     
+$('#close').click(function(){
+    
+    $('#edit-model').hide();
+    
+})
+    
+    
+// check if checkbox is checked
+$("#checkboxes").click(function(){
+        var checkboxes = $("input[type='checkbox']");
+        if(checkboxes.is(":checked")){
+            //alert("checked");
+        } else{
+            $('#canterbury').prop('checked', true); 
+        }
+                   
+});
+    
+// check if checkbox is checked
+$("#edit-checkboxes").click(function(){
+        var editCheckboxes = $("#edit-checkboxes input[type='checkbox']");
+        if(editCheckboxes.is(":checked")){
+            //alert("checked");
+        } else{
+            // if no checkboxes checked than check one
+            $('#edit-canterbury').prop('checked', true); 
+        }
+                   
+});
+    
+    
+$('#tab-2').on('keyup', '#search', function(){
+    
+    $("#student-list").find("tr:gt(0)").remove();
+    var keyword = $('#search').val();
+    //console.log(keyword);
+    
+    var students = [];
+    
+    $.ajax({
+        
+        url     : url + "home/ajaxSearchStudent/",
+        type    : "POST",
+        data    :{searchData:keyword},
+        success : function(data){
+            
+            
+            var names = JSON.parse(data);
+            console.log(data);
+            // loop through the data came from the database
+            for (var i =0 ; i< names.length;i++){
+                       
+                id = names[i].student_id;
+                name = names[i].student_name;
+                email = names[i].student_email;
+                console.log(name);
+                
+                $('#student-list tr:last').after("<tr id="+id+"><td>"+name+"</td><td>"+email+"</td><td><form action='"+url+"home/editStudent' method='POST'><input type='hidden' name='user-id' value='"+id+"'><button type='submit' class='edit' id='edit-student' name='edit-student'><img class='img' src='"+url+"images/pencil5-512.png'></button></form></td><td><form action='"+url+"home/deleteStudent' method='POST'><input type='hidden' name='user-id' value='"+id+"'><button type='submit' class='delete' id='delete-student' name='delete-user'><img class='img' src='"+url+"images/f-cross_256-128.png'></button></form></td></tr>");
+                
+            };
+            
+        }
+        
+    })
+})
     
 })// END OF DOCUMENT READY FUNCTION
 

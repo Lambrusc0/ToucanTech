@@ -22,7 +22,6 @@ class RegisterModel extends BaseModel{
         } catch(PDOException $e) {
         
             echo $e->getMessage();
-            return "There was a problem to put the data to the database";
         
         }
         
@@ -40,56 +39,142 @@ class RegisterModel extends BaseModel{
                             ':student_id'=>$lastId,
                             ':school_name'=>$checkBox));
             
-            return "true";
+            return true;
             
         } catch(PDOException $e){
             
-            echo $e->getMessage();
-            return "There was a problem to put the data to the database";
+            return $e->getMessage();
             
         }
         
     }
     
+    public function deleteStudentModel($id){
+        
+        try{
+            
+            $stmt = $this->db->prepare('DELETE FROM school WHERE student_id = :id');
+            
+            $stmt->execute(array(':id'=>$id));
+            
+        } catch(PDOException $e){
+            
+            echo $e->getMessage();
+           
+        }
+        
+        try{
+            
+            $stmt = $this->db->prepare('DELETE FROM student WHERE student_id = :id');
+            
+            $stmt->execute(array(':id'=>$id));
+            
+            return true;
+            
+        } catch(PDOException $e){
+            
+            echo $e->getMessage();
+            
+        }
+        
+    }
     
+    public function editStudentModel($id){
+        
+        try{
+            
+            $stmt = $this->db->prepare('SELECT * FROM student WHERE student_id = :id');
+            
+            $stmt->execute(array(':id'=>$id));
+            
+            $details = $stmt->fetchALL(PDO::FETCH_ASSOC);
+            
+            return $details;
+            
+        } catch(PDOException $e) {
+				echo $e->getMessage();
+			}
+        
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public function loadContactsModel(){
+    public function getSchoolsModel($id){
         
         
         try{
             
-            $stmt = $this->db->prepare('SELECT * FROM list');
+            $stmt = $this->db->prepare('SELECT * FROM school WHERE student_id = :id');
+            
+            $stmt->execute(array(':id'=>$id));
+            
+            $schools = $stmt->fetchALL(PDO::FETCH_ASSOC);
+            
+            return $schools;
+            
+        } catch(PDOException $e) {
+				echo $e->getMessage();
+			}
+        
+    }
+    
+    
+    public function updateStudentModel($name, $email, $id){
+        
+        try{
+            
+            $stmt = $this->db->prepare('UPDATE student SET student_name = :name, student_email = :email WHERE student_id = :id');
+            
+            $stmt->execute(array(':name'=>$name,
+                                ':email'=>$email,
+                                ':id'=>$id));
+            
+        } catch(PDOException $e) {
+				echo $e->getMessage();
+			}
+        
+        
+    }
+    
+    public function deletSchoolModel($id){
+        
+        try{
+            
+            $stmt = $this->db->prepare('DELETE FROM school WHERE student_id = :id');
+            
+            $stmt->execute(array(':id'=>$id));
+            
+        } catch(PDOException $e) {
+				echo $e->getMessage();
+			}
+        
+    }
+    
+    
+    public function loadStudentsModel(){
+        
+        
+        try{
+            
+            $stmt = $this->db->prepare('SELECT * FROM student');
             $stmt->execute(array());
             $row = $stmt->fetchALL(PDO::FETCH_ASSOC);
             return $row;
             
         } catch(PDOException $e) {
                 echo $e->getMessage();
-            return "There was a problem to put the data to the database";
         }
+        
+    }
+    
+    public function ajaxSearchStudentModel($search){
+        
+        $stmt = $this->db->prepare("SELECT * FROM student WHERE student_name LIKE :search ");
+        
+                
+        $stmt->execute(array(':search'=>$search.'%'));
+        $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+                  
+        return $students;
         
     }
     
