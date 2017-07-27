@@ -1,17 +1,12 @@
-# A Blank PhoneGap App
+# ToucanTech
 
-## Usage
+Interview test
+ToucanTech
 
-### PhoneGap CLI
+The ToucanTech database stores information about its members. Each member can be associated with 1 or more school.
 
-    $ phonegap create my-app --template blank
+You should build a demo that allows someone to add a new member with the fields “Name”, “Email Address” and "School" (selected from a list). The demo should display all members for a selected school.   
 
-### Desktop
+The primary language we use is PHP and we use an MVC framework so please use this in your coding test.
 
-In your browser, open the file:
-
-    /www/index.html
-
-
-This is the root for the application for node npm and then write gulp
-cmd /K "cd C:\xampp\htdocs\projects\Gusto_tablet""# gusto-app" 
+cmd /K "cd C:\xampp\htdocs\projects\ToucanTech - GaborJuhasz"
