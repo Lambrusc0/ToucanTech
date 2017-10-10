@@ -1,12 +1,11 @@
-# ToucanTech
+# Student registration
 
-Interview test
-ToucanTech
 
-The ToucanTech database stores information about its members. Each member can be associated with 1 or more school.
 
-You should build a demo that allows someone to add a new member with the fields “Name”, “Email Address” and "School" (selected from a list). The demo should display all members for a selected school.   
+Student registration database stores information about students. Each member can be associated with 1 or more school.
 
-The primary language we use is PHP and we use an MVC framework so please use this in your coding test.
+That demo allows someone to add a new member with the fields “Name”, “Email Address” and "School" (selected from a list). The demo displays all members for a selected school.   
+
+The primary language used here is PHP and an MVC framework.
 
 cmd /K "cd C:\xampp\htdocs\projects\ToucanTech - GaborJuhasz"
